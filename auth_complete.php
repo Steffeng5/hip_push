@@ -28,5 +28,5 @@ $access_token_file = fopen($config['access_token_file_path'], "a") or die("Unabl
 fwrite($access_token_file, $token->access_token.PHP_EOL);
 fclose($access_token_file);
 
-echo "<h1>Diese hässliche Seite zeigt dir, dass du nun Pushbenachrichtigungen bekommst</h1>";
+echo "<h1>Diese tolle Seite zeigt dir, dass du nun Pushbenachrichtigungen bekommst</h1>";
 ?>
