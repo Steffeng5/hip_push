@@ -34,3 +34,5 @@ build/
 .rvmrc
 
 config.yaml
+module.txt
+done.txt
