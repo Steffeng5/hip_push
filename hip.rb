@@ -5,7 +5,7 @@ require 'rubygems'
 require 'mechanize'
 require 'yaml'
 
-config = YAML.load_file(File.dirname(__FILE__ + '/config.yaml'))
+config = YAML.load_file(File.dirname(__FILE__) + '/config.yaml')
 
 a = Mechanize.new
 a.get(config['hip_url']) do |page|
