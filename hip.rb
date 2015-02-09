@@ -3,12 +3,11 @@ require 'rubygems'
 require 'mechanize'
 require 'yaml'
 
-config = YAML.load_file('config.yaml')
+config = YAML.load_file(File.dirname(__FILE__ + '/config.yaml'))
 
 a = Mechanize.new
 a.get(config['hip_url']) do |page|
   # Submit the login form
-  # puts page.content
   dashboard = a.current_page.form_with(name: 'loginform') do |f|
   
   	f['asdf'] = config['user']
