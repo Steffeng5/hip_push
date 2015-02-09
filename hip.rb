@@ -45,15 +45,16 @@ a.get(config['hip_url']) do |page|
         })
 
 
-
-        #Notify others
-        IO.foreach config['access_token_file_path'] do |access_token|
-          a.add_auth('https://api.pushbullet.com', access_token.strip, '')
-          a.post('https://api.pushbullet.com/v2/pushes', {
-            "type" => "note",
-            "title" => "Neue Noten!",
-            "body" => modul
-          })
+        if (config['notify_all'] == 'true') 
+          #Notify others
+          IO.foreach config['access_token_file_path'] do |access_token|
+            a.add_auth('https://api.pushbullet.com', access_token.strip, '')
+            a.post('https://api.pushbullet.com/v2/pushes', {
+              "type" => "note",
+              "title" => "Neue Noten!",
+              "body" => modul
+            })
+          end
         end
       end
     end
