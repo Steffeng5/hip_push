@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby -wKU
+$VERBOSE = false
+
 require 'rubygems'
 require 'mechanize'
 require 'yaml'
@@ -9,10 +11,10 @@ a = Mechanize.new
 a.get(config['hip_url']) do |page|
   # Submit the login form
   dashboard = a.current_page.form_with(name: 'loginform') do |f|
-  
+
   	f['asdf'] = config['user']
     f['fdsa'] = config['password']
-  	
+
   end.submit
 
   dashboard   = a.click(dashboard.link_with(text: /fungsverwaltung/))
@@ -26,7 +28,7 @@ a.get(config['hip_url']) do |page|
 
   all_modules.each do |line|
     status = line.at_xpath('td[5]/text()').to_s.strip
-    
+
     if (status != "angemeldet")
       modul = line.at_xpath('td[2]/text()').to_s.strip
       unless (modul.empty? or known_modules.include?(modul))
@@ -34,8 +36,6 @@ a.get(config['hip_url']) do |page|
           file.puts modul
         end
 
-        # Notify students
-        ausgabe = "Neue Noten im HIP: " + modul
         #Pushover
         a.post('https://api.pushover.net/1/messages.json', {
           "token" => config['pushover_token'],
