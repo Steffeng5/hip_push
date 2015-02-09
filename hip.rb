@@ -24,7 +24,7 @@ a.get(config['hip_url']) do |page|
 
   document      = Nokogiri::HTML(grades_page.content)
   all_modules   = document.xpath('//form/table[2]').search('tr')
-  known_modules = File.read('module.txt', {encoding: "UTF-8"})
+  known_modules = File.read(File.dirname(__FILE__) + 'module.txt', {encoding: "UTF-8"})
 
   all_modules.each do |line|
     status = line.at_xpath('td[5]/text()').to_s.strip
@@ -32,7 +32,7 @@ a.get(config['hip_url']) do |page|
     if (status != "angemeldet")
       modul = line.at_xpath('td[2]/text()').to_s.strip
       unless (modul.empty? or known_modules.include?(modul))
-        open('module.txt', 'a:UTF-8') do |file|
+        open(File.dirname(__FILE__) + 'module.txt', 'a:UTF-8') do |file|
           file.puts modul
         end
 
